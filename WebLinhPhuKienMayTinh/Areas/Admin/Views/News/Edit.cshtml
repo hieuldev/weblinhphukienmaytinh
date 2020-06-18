@@ -1,0 +1,106 @@
+﻿@model WebLinhPhuKienMayTinh.Models.EF.NEWS
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="grid_10">
+    <div class="box round first grid">
+        <h2>Sửa thương hiệu</h2>
+        @section jsFooter{
+            <script>
+                    $('#selectImg').bind('click', function (e) {
+                        e.preventDefault();
+                        var finder = new CKFinder();
+                        finder.selectActionFunction = function (url) {
+                            $('#txtImage').val(url);
+                        };
+                        finder.popup();
+                    })
+                    var editor = CKEDITOR.replace('content', {
+                        customConfig: '/Assets/Admin/js/plugins/ckeditor/config.js',
+                    });
+
+
+            </script>
+        }
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+        <div class="success">@ViewData["success"]</div>
+        <div class="block copyblock" style="margin-right: 100px ;
+    padding-right: 30px ;
+    width:auto ;">
+            @using (Html.BeginForm("Edit", "News", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.newsID)
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Tiêu đề</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.newsTitle, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Tải ảnh</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.newsImg, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
+                        <a id="selectImg" href="#">Chọn ảnh</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Mô tả</label>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.newsContent, new { @class = "tinymce", @id = "content" })
+                    </div>
+                </div>
+           
+                <div class="form-group">
+                    <label class="control-label col-md-2">Loại sản phẩm</label>
+                    <div class="col-md-10">
+                        <select id="select" name="newsType">
+                            @{
+                                if (ViewBag.type == "0")
+                                {
+                                    <option selected value="0">Tin thường</option>
+                                    <option value="1">Tin mới</option>
+                                    <option value="2">Tin hot</option>
+                                }
+                                else if (ViewBag.type == "1")
+                                {
+                                    <option selected value="1">Tin mới</option>
+                                    <option value="0">Tin thường</option>
+                                    <option value="2">Tin hot</option>
+                                }
+                                else
+                                {
+                                    <option selected value="2">Tin hot</option>
+                                    <option value="0">Tin thường</option>
+                                    <option value="1">Tin mới</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="news_submit">
+                        <input type="submit" name="submit" Value="Lưu" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <div>
+                @Html.ActionLink("<<<Quay lại", "Productlist")
+            </div>
+        </div>
+    </div>
+</div>

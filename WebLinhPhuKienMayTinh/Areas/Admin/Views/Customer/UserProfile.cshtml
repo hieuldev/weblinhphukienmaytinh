@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@using WebLinhPhuKienMayTinh.Models.EF;
+@model PagedList.IPagedList<CUSTOMER>
+@using PagedList.Mvc
+@{int i = 0; }
+<div class="grid_10">
+    <div class="box round first grid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Hồ sơ khách hàng</h2>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row">
+                            <div>
+                                <div class="new_input-form">
+                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
+                                </div>
+                                <div>
+                                    <button type="submit">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Tên người dùng</th>
+                                <th>Địa chỉ</th>
+                                <th>Tỉnh/Thành phố</th>
+                                <th>Số điện thoại</th>
+                                <th>Mã bưu điện</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                @{ i++;}
+                                <td>@i</td>
+                                <td>@item.name</td>
+                                <td>@item.address0</td>
+                                <td>@item.city</td>
+                                <td>@item.phone</td>
+                                <td>@item.zipcode</td>
+                                <td>@item.email</td>
+
+
+
+                            </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="col-sm-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                            @Html.PagedListPager(Model, page => Url.Action("UserProfile", new { page, @searchString = @ViewBag.searchString }))
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+    </d
+

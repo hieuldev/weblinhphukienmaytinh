@@ -1,0 +1,152 @@
+﻿@model WebLinhPhuKienMayTinh.Models.EF.PRODUCT
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+    <div class="grid_10">
+        <div class="box round first grid" >
+            <h2>Sửa thương hiệu</h2>
+            @section jsFooter{
+                <script>
+                    $('#selectImg').bind('click', function (e) {
+                        e.preventDefault();
+                        var finder = new CKFinder();
+                        finder.selectActionFunction = function (url) {
+                            $('#txtImage').val(url);
+                        };
+                        finder.popup();
+                    })
+                    var editor = CKEDITOR.replace('content', {
+                        customConfig: '/Assets/Admin/js/plugins/ckeditor/config.js',
+                    });
+
+
+                </script>
+            }
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <div class="success">@ViewData["success"]</div>
+            <div class="block copyblock" style="margin-right: 100px ;
+    padding-right: 30px ;
+    width:auto ;">
+                @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.productId)
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên sản phẩm</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.productName, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Mã sản phẩm</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.product_Code, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Số lượng sản phẩm</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.productQuantity, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Danh mục sản phẩm</label>
+                            <div class="col-md-10">
+                                <select id="select" name="catId">
+
+                                    <option selected value="@ViewBag.CatId">@ViewBag.CategoryName</option>
+                                    @foreach (var item in ViewBag.ListCategory)
+                                    {
+                                        <option value="@item.catId">@item.catName</option>
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Thương hiệu</label>
+                            <div class="col-md-10">
+                                <select id="select" name="brandId">
+
+                                    <option selected value="@ViewBag.BrandId">@ViewBag.BrandName</option>
+                                    @foreach (var item in ViewBag.ListBrand)
+                                    {
+                                        <option value="@item.brandId">@item.brandName</option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Mô tả</label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.product_Desc, new { @class = "tinymce", @id = "content" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Loại sản phẩm</label>
+                            <div class="col-md-10">
+                                <select id="select" name="types">
+                                    @{
+                                        if (ViewBag.types == 0)
+                                        {
+                                            <option selected value="0">Sản phẩm bình thường</option>
+                                            <option value="1">Sản phẩm nổi bật</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="1">Sản phẩm nổi bật</option>
+                                            <option value="0">Sản phẩm bình thường</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Giá</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tải ảnh</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.images, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
+                                <a id="selectImg" href="#">Chọn ảnh</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="news_submit">
+                                <input type="submit" name="submit" Value="Lưu" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("<<<Quay lại", "Productlist")
+                </div>
+            </div>
+        </div>
+    </div>

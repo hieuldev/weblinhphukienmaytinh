@@ -1,0 +1,46 @@
+﻿@using WebLinhPhuKienMayTinh.Areas.Admin.Models;
+@model BrandModel
+@{
+    ViewBag.Title = "Brandadd";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="grid_10">
+    <div class="box round first grid">
+        <h2>Thêm thương hiệu</h2>
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+    <div class="success">@ViewData["success"]</div>
+        <div class="block copyblock">
+
+            @using (Html.BeginForm("Brandadd", "Brand", FormMethod.Post))//(action,controller)
+            {
+
+                <table class="form">
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(model => model.brandName, new { @class = "medium", placeholder = "Làm ơn thêm thương hiệu sản phẩm..." })
+
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <select id="select" name="topBrand">
+                                <option>Lựa chọn loại thương hiệu</option>
+                                <option value="1">Thương hiệu hàng đầu</option>
+                                <option value="0">Thương hiệu bình thường</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="submit" name="submit" Value="Lưu" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+

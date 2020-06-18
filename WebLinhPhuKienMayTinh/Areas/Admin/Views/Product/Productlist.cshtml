@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "Productlist";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@using WebLinhPhuKienMayTinh.Models.Dao;
+@using WebLinhPhuKienMayTinh.Models.EF;
+@model PagedList.IPagedList<PRODUCT>
+@using PagedList.Mvc
+@{var i = 0; }
+<div class="grid_10">
+    <div class="box round first grid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Danh sách sản phẩm</h2>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @using (Html.BeginForm("Productlist", "Product", FormMethod.Get))
+                    {
+                        <div class="row">
+                            <div>
+                                <div class="new_input-form">
+                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
+                                </div>
+                                <div>
+                                    <button type="submit">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Mã</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Nhập hàng</th>
+                                <th>Số lượng nhập</th>
+                                <th>Đã bán</th>
+                                <th>Tồn</th>
+                                <th>Giá</th>
+                                <th>Hình ảnh</th>
+                                <th>Danh mục</th>
+                                <th>Thương hiệu</th>
+                                <th>Loại</th>
+                                <th>Xử lý</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @{ i++;}
+                                    <td>@i</td>
+                                    <td>@item.product_Code</td>
+                                    <td>@item.productName</td>
+                                    <td><a href="/Admin/Product/EnterProduct/@item.productId">Nhập hàng</a></td>
+                                    <td>@item.productQuantity</td>
+                                    <td>@item.procduct_Soldout</td>
+                                    <td>@item.product_Remain</td>
+                                    <td>@item.productQuantity</td>
+                                    <td><img src="@item.images" id="sp"></td>
+                                    <td>
+                                        @{var Cat = new ProductDao();
+                                            string CatName;
+                                            if (Cat.ViewdetailCat(Convert.ToInt32(item.catId)) == null)
+                                            {
+                                                CatName = "";
+                                            }
+                                            else
+                                            {
+                                                CatName = Cat.ViewdetailCat(Convert.ToInt32(item.catId)).catName;
+                                            }
+
+                                        }
+                                        @CatName
+                                    </td>
+                                    <td>
+                                        @{
+                                            var Brand = new ProductDao();
+                                            string BrandName;
+                                             if (Brand.ViewdetailBrand(Convert.ToInt32(item.brandId)) == null)
+                                            {
+                                                BrandName = "";
+                                            }
+                                             else
+                                            {
+                                           BrandName = Brand.ViewdetailBrand(Convert.ToInt32(item.brandId)).brandName;
+                                                }
+                                        }
+                                        @BrandName
+                                    </td>
+
+
+                                    @{if (@item.types == 1)
+                                        {
+
+                                            <td>Sản phẩm nổi bật</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Sản phẩm bình thường</td>
+                                        }
+
+                                    }
+
+
+
+                                    <td>
+
+                                        <a href="/Admin/Product/Edit/@item.productId">
+                                            <span class="glyphicon glyphicon-edit">
+                                            </span>
+                                        </a>
+
+                                        <a href="/Admin/Product/Delete/@item.productId" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="col-sm-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                            @Html.PagedListPager(Model, page => Url.Action("Productlist", new { page, @searchString = @ViewBag.searchString }))
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+</div>
+

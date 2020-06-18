@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@using WebLinhPhuKienMayTinh.Models.EF;
+@using WebLinhPhuKienMayTinh.Areas.Admin.Models;
+@model PagedList.IPagedList<WarehouseModel>
+@using PagedList.Mvc
+@{int i = 0; }
+<div class="grid_10">
+    <div class="box round first grid">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Danh mục sản phẩm</h2>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row">
+                            <div>
+                                <div class="new_input-form">
+                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
+                                </div>
+                                <div>
+                                    <button type="submit">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng ban đầu</th>
+                                <th>Đã bán </th>
+                                <th>Số lượng trước nhập</th>
+                                <th>Số lượng thêm</th>
+                                <th>Số lượng sau nhập</th>
+                                <th>Ngày nhập</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                var c = Convert.ToInt32(item.product_Remain) - Convert.ToInt32(item.product_more_quantity);
+                                <tr>
+                                    @{ i++;}
+                                    <td>@i</td>
+                                    <td>@item.product_Code</td>
+                                    <td>@item.productName</td>
+                                    <td>@item.productQuantity</td>
+                                    <td>@item.procduct_Soldout</td>
+                                    <td>@c</td>
+                                    <td>@item.product_more_quantity</td>
+                                    <td>@item.product_Remain</td>
+                                    <td>@item.sl_Ngaynhap</td>
+
+
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="col-sm-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.searchString }))
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.box-body -->
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
+
+
+
+    </div>
+</div>
+
+

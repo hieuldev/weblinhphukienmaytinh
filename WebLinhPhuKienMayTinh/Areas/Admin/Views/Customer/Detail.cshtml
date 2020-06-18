@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@model WebLinhPhuKienMayTinh.Models.EF.CUSTOMER
+    <div class="grid_10">
+        <div class="box round first grid">
+            <h2>Chi tiết khách hàng</h2>
+            <div class="block copyblock">
+                <form action="" method="post">
+                    <table class="form">
+                        <tr>
+                            <td>Tên</td>
+
+                            <td>
+
+                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" ,@readonly="readonly"} })
+                               
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Điện thoại</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Thành phố</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Địa chỉ</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.address0, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mã bưu điện</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.zipcode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+
+                            <td>
+                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>

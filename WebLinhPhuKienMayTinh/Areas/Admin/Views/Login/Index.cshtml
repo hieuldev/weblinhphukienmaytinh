@@ -1,0 +1,45 @@
+﻿@using WebLinhPhuKienMayTinh.Areas.Admin.Models;
+@model LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/Assets/Admin/css/stylelogin.css" media="screen" />
+</head>
+<body>
+    <style>
+    </style>
+    <div class="container">
+        <section id="content">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))//(action,controller)
+            {
+
+                <h1>Admin Login</h1>
+                @Html.ValidationSummary(false, "", new { @class = "error" });
+                <div>
+                    @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
+                </div>
+                <div>
+                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
+                </div>
+                <div>
+                    <label>
+                        @Html.CheckBoxFor(model => model.RememberMe)Remember  Me
+                    </label>
+                </div>
+                <div>
+                    <input type="submit" value="Log in" />
+                </div>
+            }
+
+            <div class="button">
+                <p>Cửa hàng linh phụ kiện máy tính</p>
+            </div><!-- button -->
+        </section><!-- content -->
+    </div><!-- container -->
+</body>
+</html>

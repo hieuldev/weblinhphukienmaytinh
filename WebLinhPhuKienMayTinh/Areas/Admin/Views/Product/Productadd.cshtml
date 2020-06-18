@@ -1,0 +1,153 @@
+﻿@using WebLinhPhuKienMayTinh.Areas.Admin.Models;
+@model ProductModel
+@{
+    ViewBag.Title = "Productadd";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+<div class="grid_10">
+    <div class="box round first grid">
+        <h2>Thêm sản phẩm</h2>
+        @section jsFooter{
+            <script>
+                $('#selectImg').bind('click', function (e) {
+                    e.preventDefault();
+                    var finder = new CKFinder();
+                    finder.selectActionFunction = function (url) {
+                        $('#txtImage').val(url);
+                    };
+                    finder.popup();
+                })
+                var editor = CKEDITOR.replace('content', {
+                    customConfig:'/Assets/Admin/js/plugins/ckeditor/config.js',});
+
+
+            </script>
+        }
+
+
+
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+        <div class="success">@ViewData["success"]</div>
+        <div class="block">
+
+            @using (Html.BeginForm("Productadd", "Product", FormMethod.Post))//(action,controller)
+            {
+                <table class="form">
+
+                    <tr>
+                        <td>
+                            <label>Tên sản phẩm</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.productName, new { @class = "medium", placeholder = "Nhập tên sản phẩm..." })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Mã sản phẩm</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.product_Code, new { @class = "medium", placeholder = "Nhập code sản phẩm..." })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Số lượng sản phẩm</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.productQuantity, new { @class = "medium", placeholder = "Nhập số lượng sản phẩm..." })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Danh mục sản phẩm</label>
+                        </td>
+                        <td>
+                            <select id="select" name="catId">
+                                <option>Chọn chuyên mục</option>
+                                @foreach (var item in ViewBag.ListCategory)
+                                    {
+                                        <option value="@item.catId">@item.catName</option>
+                                    }
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Thương hiệu</label>
+                        </td>
+                        <td>
+                            <select id="select" name="brandId">
+                                <option>Chọn thương hiệu</option>
+                                @foreach (var item in ViewBag.ListBrand)
+                                    {
+                                        <option value="@item.brandId">@item.brandName</option>
+                                    }
+
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top; padding-top: 9px;">
+                            <label>Mô tả</label>
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(model => model.product_Desc, new { @class = "tinymce", @id = "content" })
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Giá</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.price, new { @class = "medium", placeholder = "Nhập giá..." })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>Tải ảnh</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.images, new { @class = "medium", placeholder = "Hãy chọn hình ảnh", @id = "txtImage" })
+                            <a id="selectImg" href="#">Chọn ảnh</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>Loại sản phẩm</label>
+                        </td>
+                        <td>
+                            <select id="select" name="types">
+                                <option>Chọn</option>
+                                <option value="1">Nổi bật</option>
+                                <option value="0">Không nổi bật</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" name="submit" Value="Lưu" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+<!-- Load TinyMCE -->
+<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setupTinyMCE();
+        setDatePicker('date-picker');
+        $('input[type="checkbox"]').fancybutton();
+        $('input[type="radio"]').fancybutton();
+    });
+</script>
+<!-- Load TinyMCE -->

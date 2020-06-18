@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "AddNews";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+@using WebLinhPhuKienMayTinh.Areas.Admin.Models;
+@model NewsModel
+<div class="grid_10">
+    <div class="box round first grid">
+        <h2>Thêm tin tức</h2>
+        @section jsFooter{
+            <script>
+                $('#selectImg').bind('click', function (e) {
+                    e.preventDefault();
+                    var finder = new CKFinder();
+                    finder.selectActionFunction = function (url) {
+                        $('#txtImage').val(url);
+                    };
+                    finder.popup();
+                })
+                var editor = CKEDITOR.replace('content', {
+                    customConfig: '/Assets/Admin/js/plugins/ckeditor/config.js',
+                });
+
+
+            </script>
+        }
+
+
+
+        @Html.ValidationSummary(false, "", new { @class = "error" })
+        <div class="success">@ViewData["success"]</div>
+        <div class="block">
+
+            @using (Html.BeginForm("AddNews", "News", FormMethod.Post))//(action,controller)
+            {
+            <table class="form">
+
+                <tr>
+                    <td>
+                        <label>Tiêu đề</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.newsTitle, new { @class = "medium", placeholder = "Nhập tiêu đề..." })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Hình ảnh</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.newsImg, new { @class = "medium", placeholder = "Hãy chọn hình ảnh", @id = "txtImage" })
+                        <a id="selectImg" href="#">Chọn ảnh</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 9px;">
+                        <label>Nội dung</label>
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(model => model.newsContent, new { @class = "tinymce", @id = "content" })
+
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label>Loại tin tức</label>
+                    </td>
+                    <td>
+                        <select id="select" name="newsType">
+                            <option>Chọn</option>
+                            <option value="0">Tin thường</option>
+                            <option value="1">Tin mới</option>
+                            <option value="2">Tin hot</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="submit" Value="Lưu" />
+                    </td>
+                </tr>
+            </table>
+            }
+        </div>
+    </div>
+</div>
+<!-- Load TinyMCE -->
+<script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setupTinyMCE();
+        setDatePicker('date-picker');
+        $('input[type="checkbox"]').fancybutton();
+        $('input[type="radio"]').fancybutton();
+    });
+</script>
+<!-- Load TinyMCE -->
