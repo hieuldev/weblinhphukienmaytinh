@@ -7,90 +7,77 @@
 @model PagedList.IPagedList<BRAND>
 @using PagedList.Mvc
 @{var i = 0; }
-<div class="grid_10">
-    <div class="box round first grid">     
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Danh sách thương hiệu</h2>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        @using (Html.BeginForm("Brandlist", "Brand", FormMethod.Get))
-                        {
-                        <div class="row">
-                            <div >
-                                <div class="new_input-form">
-                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
-                                </div>
-                                <div>
-                                    <button type="submit">Tìm kiếm</button>
-                                </div>
-                            </div>
-                            </div>
-                        }
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Thương hiệu</th>
-                                        <th>Loại thương hiêu</th>
-                                        <th>Xử lý</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            @{ i++;}
-                                            <td>@i</td>
-                                            <td>@item.brandName</td>
-
-                                            @{if (item.topBrand == "0")
-                                                {
-
-                                                    <td>Thương hiệu bình thường</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>Thương hiệu hàng đầu</td>
-                                                }
-
-                                            }
-
-                                            <td>
-                                                <a href="/Admin/Brand/Edit/@item.brandId">
-                                                    <span class="glyphicon glyphicon-edit">
-                                                    </span>
-                                                </a>
-
-                                                <a href="/Admin/Brand/Delete/@item.brandId" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
-                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-
-                            </table>
-
-                            <div class="col-sm-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                    @Html.PagedListPager(Model, page => Url.Action("Brandlist", new { page,@searchString=@ViewBag.searchString }))
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- /.box-body -->
-                        <!-- /.box -->
-                        <!-- /.box -->
-                    </div>
-                <!-- /.col -->
-
+@section header
+{
+    DANH SÁCH THƯƠNG HIỆU SẢN PHẨM
+}
+<div class="box-body">
+    @using (Html.BeginForm("Brandlist", "Brand", FormMethod.Get))
+    {
+        <div class="row">
+            <div>
+                <div class="new_input-form">
+                    <input type="text" value="@ViewBag.searchString" name="searchString" />
+                </div>
+                <div>
+                    <button type="submit">Tìm kiếm</button>
+                </div>
             </div>
-            <!-- /.row -->
+        </div>
+    }
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Thương hiệu</th>
+                <th>Loại thương hiêu</th>
+                <th>Xử lý</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{ i++;}
+                    <td>@i</td>
+                    <td>@item.brandName</td>
 
+                    @{if (item.topBrand == "0")
+                        {
 
+                            <td>Thương hiệu bình thường</td>
+                        }
+                        else
+                        {
+                            <td>Thương hiệu hàng đầu</td>
+                        }
 
+                    }
+
+                    <td>
+                        <a href="/Admin/Brand/Edit/@item.brandId">
+                            <span class="glyphicon glyphicon-edit">
+                            </span>
+                        </a>
+
+                        <a href="/Admin/Brand/Delete/@item.brandId" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+    <div class="col-sm-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            @Html.PagedListPager(Model, page => Url.Action("Brandlist", new { page, @searchString = @ViewBag.searchString }))
         </div>
     </div>
+
+
+</div>
+<!-- /.box-body -->
+<!-- /.box -->
+<!-- /.box -->
