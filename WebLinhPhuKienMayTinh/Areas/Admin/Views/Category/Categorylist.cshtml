@@ -8,78 +8,65 @@
 @model PagedList.IPagedList<CATEGORY>
 @using PagedList.Mvc
 @{int i = 0; }
-<div class="grid_10">
-    <div class="box round first grid">
+@section header
+{
+    DANH SÁCH DANH MỤC
+}
+<div class="box-body">
+    @using (Html.BeginForm("Categorylist", "Category", FormMethod.Get))
+    {
         <div class="row">
-            <div class="col-xs-12">
-                <h2>Danh mục sản phẩm</h2>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    @using (Html.BeginForm("Categorylist", "Category", FormMethod.Get))
-                    {
-                        <div class="row">
-                            <div>
-                                <div class="new_input-form">
-                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
-                                </div>
-                                <div>
-                                    <button type="submit">Tìm kiếm</button>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    <table id="example2" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Tên danh mục</th>
-                                <th>Xử lý</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    @{ i++;}
-                                    <td>@i</td>
-                                    <td>@item.catName</td>
-
-
-                                    <td>
-                                        <a href="/Admin/Category/Edit/@item.catId">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span>
-                                        </a>
-
-                                        <a href="/Admin/Category/Delete/@item.catId" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-
-                        </tbody>
-
-                    </table>
-
-                    <div class="col-sm-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                            @Html.PagedListPager(Model, page => Url.Action("Categorylist", new { page, @searchString = @ViewBag.searchString }))
-                        </div>
-                    </div>
-
-
+            <div>
+                <div class="new_input-form">
+                    <input type="text" value="@ViewBag.searchString" name="searchString" />
                 </div>
-                <!-- /.box-body -->
-                <!-- /.box -->
-                <!-- /.box -->
+                <div>
+                    <button type="submit">Tìm kiếm</button>
+                </div>
             </div>
-            <!-- /.col -->
-
         </div>
-        <!-- /.row -->
+    }
+    <div class="card-block table-border-style">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Tên danh mục</th>
+                        <th>Xử lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @{ i++;}
+                            <th scope="row">@i</th>
+                            <td>@item.catName</td>
+                            <td>
+                                <a href="/Admin/Category/Edit/@item.catId">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </a>
+
+                                <a href="/Admin/Category/Delete/@item.catId" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
 
 
-
+                </tbody>
+            </table>
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                    @Html.PagedListPager(Model, page => Url.Action("Categorylist", new { page, @searchString = @ViewBag.searchString }))
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+

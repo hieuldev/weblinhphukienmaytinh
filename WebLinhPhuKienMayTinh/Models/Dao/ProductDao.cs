@@ -24,6 +24,14 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
         {
             return db.BRANDs.ToList();
         }
+        public List<PRODUCT> ListNewProduct(int top)
+        {
+            return db.PRODUCTs.OrderByDescending(x => x.productId).Take(top).ToList();
+        }
+        public List<PRODUCT> ListFeatureProduct(int top)
+        {
+            return db.PRODUCTs.OrderByDescending(x => x.product_Remain).Take(top).ToList();
+        }
         public List<CATEGORY> ListCategory()
         {
             return db.CATEGORies.ToList();

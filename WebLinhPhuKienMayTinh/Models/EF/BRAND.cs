@@ -1,4 +1,4 @@
-﻿namespace WebLinhPhuKienMayTinh.Models.EF
+namespace WebLinhPhuKienMayTinh.Models.EF
 {
     using System;
     using System.Collections.Generic;

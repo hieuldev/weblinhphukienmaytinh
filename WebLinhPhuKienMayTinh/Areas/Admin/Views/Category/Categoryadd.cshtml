@@ -4,37 +4,42 @@
     ViewBag.Title = "Categoryadd";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
 }
+@section header
+{
+    THÊM DANH MỤC SẢN PHẨM
+}
 
-<div class="grid_10">
-    <div class="box round first grid">
-        <h2>Thêm danh mục sản phẩm</h2>
-        @Html.ValidationSummary(false, "", new { @class = "error" })
-        <div class="success">@ViewData["success"]</div>
-        <div class="block copyblock">
-
-            @using (Html.BeginForm("Categoryadd", "Category", FormMethod.Post))//(action,controller)
-            {
-
-                <table class="form">
-                    <tr>
-                        <td>
-                            @Html.TextBoxFor(model=>model.CatName, new { @class = "medium", placeholder = "Làm ơn thêm danh mục sản phẩm..." })
-
-                        </td>
-                    </tr>
-                    <tr>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <input type="submit" name="submit" Value="Lưu" />
-                        </td>
-                    </tr>
-                </table>
-            }
+@using (Html.BeginForm("Categoryadd", "Category", FormMethod.Post))//(action,controller)
+{
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới </h3>
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <div class="success">@ViewData["success"]</div>
         </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Danh mục sản phẩm</label>
+                        @Html.TextBoxFor(model => model.CatName, new { @class = "form-control", placeholder = "Làm ơn thêm danh mục sản phẩm..." })
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Thêm" />
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.box-body -->
+
     </div>
-</div>
+
+}
 
 
 

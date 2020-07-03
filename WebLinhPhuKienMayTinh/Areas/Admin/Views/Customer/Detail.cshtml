@@ -4,61 +4,48 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
 }
 @model WebLinhPhuKienMayTinh.Models.EF.CUSTOMER
-    <div class="grid_10">
-        <div class="box round first grid">
-            <h2>Chi tiết khách hàng</h2>
-            <div class="block copyblock">
-                <form action="" method="post">
-                    <table class="form">
-                        <tr>
-                            <td>Tên</td>
 
-                            <td>
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title">Chi tiết khách hàng</h3>
 
-                                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" ,@readonly="readonly"} })
-                               
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Điện thoại</td>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="/Assets/Admin/dist/img/user.png" alt="User profile picture">
 
-                            <td>
-                                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Thành phố</td>
+                <h3 class="profile-username text-center">@Model.name</h3>
 
-                            <td>
-                                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Địa chỉ</td>
+                <ul class="list-group list-group-unbordered" style="margin-left: 30%;margin-right: 30%;">
+                    <li class="list-group-item">
+                        <b>Tên khách hàng</b> <a class="pull-right">@Model.name</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Email</b> <a class="pull-right">@Model.email</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Địa chỉ</b><a class="pull-right">@Model.address0</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Tỉnh/Thành phố</b><a class="pull-right">@Model.city</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Quốc gia</b><a class="pull-right">@Model.country</a> 
+                    </li>
+                    <li class="list-group-item">
+                        <b>Mã bưu điện</b> <a class="pull-right">@Model.zipcode</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Điện thoại</b> <a class="pull-right">@Model.phone</a>
+                    </li>
+                </ul>
 
-                            <td>
-                                @Html.EditorFor(model => model.address0, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã bưu điện</td>
-
-                            <td>
-                                @Html.EditorFor(model => model.zipcode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-
-                            <td>
-                                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
-                        </tr>
-
-                    </table>
-                </form>
 
             </div>
+            <!-- /.box-body -->
         </div>
     </div>
+</div>
+

@@ -1,0 +1,80 @@
+﻿@model List<WebLinhPhuKienMayTinh.Models.CartItem>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="/Assets/Client/js/controller/cartController.js"></script>
+}
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Tên sản phẩm</td>
+                        <td>Hình ảnh</td>
+                        <td>Giá</td>
+                        <td>Số lượng</td>
+                        <td>Tổng giá</td>
+                        <td>Dịch vụ khác</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.Product.productName</td>
+                            <td><img src="@item.Product.images " width="100" /></td>
+                            <td>@item.Product.price VNĐ</td>
+                            <td>
+                                <input type="number" class="txt.Quantity" data-id="@item.Product.productId" value="@item.Quantity" />
+                                <button id="btnUpdate">Cập nhật</button>
+
+                            </td>
+                            <td>@(Convert.ToInt32(item.Product.price) * Convert.ToInt32(item.Quantity)) VNĐ </td>
+                            <td><a href="#" data-id="@item.Product.productId" class="btn-delete">Xoá</a></td>
+                        </tr>
+
+
+                    }
+
+                </tbody>
+
+                <table style="float:right;text-align:left;" width="40%">
+
+                    <tr>
+                        <th>Tổng cộng: </th>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>VAT : </th>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng tiền :</th>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </table>
+
+            <button id="btnContinue"> Tiếp tục mua hàng</button>
+            <button id="btnPayment">Thanh toán</button>
+            <button id="btnDeleteAll">Xoá giỏ hàng</button>
+
+        }
+        else
+        {
+            <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+        }
+    </div>
+</div>
+</div>
+
+

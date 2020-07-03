@@ -5,42 +5,52 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
 }
 
-<div class="grid_10">
-    <div class="box round first grid">
-        <h2>Thêm thương hiệu</h2>
-        @Html.ValidationSummary(false, "", new { @class = "error" })
-    <div class="success">@ViewData["success"]</div>
-        <div class="block copyblock">
+@section header
+{
+    THÊM THƯƠNG HIỆU SẢN PHẨM
+}
 
-            @using (Html.BeginForm("Brandadd", "Brand", FormMethod.Post))//(action,controller)
-            {
-
-                <table class="form">
-                    <tr>
-                        <td>
-                            @Html.TextBoxFor(model => model.brandName, new { @class = "medium", placeholder = "Làm ơn thêm thương hiệu sản phẩm..." })
-
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td>
-                            <select id="select" name="topBrand">
-                                <option>Lựa chọn loại thương hiệu</option>
-                                <option value="1">Thương hiệu hàng đầu</option>
-                                <option value="0">Thương hiệu bình thường</option>
-                            </select>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <input type="submit" name="submit" Value="Lưu" />
-                        </td>
-                    </tr>
-                </table>
-            }
+@using (Html.BeginForm("Brandadd", "Brand", FormMethod.Post))
+{
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới </h3>
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <div class="success">@ViewData["success"]</div>
         </div>
-    </div>
-</div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Thương hiệu sản phẩm</label>
+                        @Html.TextBoxFor(model => model.brandName, new { @class = "form-control", placeholder = "Làm ơn thêm thương hiệu sản phẩm..." })
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Loại thương hiệu</label>
+                        <select class="form-control" name="topBrand">
+                            <option>Lựa chọn</option>
+                            <option value="1">Thương hiệu hàng đầu</option>
+                            <option value="0">Thương hiệu bình thường</option>
+                        </select>
+                    </div>
+                    <!-- /.form-group -->
 
+                </div>
+
+                <!-- /.col -->
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Thêm" />
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+   
+}

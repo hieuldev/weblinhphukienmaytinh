@@ -1,0 +1,14 @@
+﻿
+@model List<WebLinhPhuKienMayTinh.Models.CartItem>
+@{
+    ViewBag.Title = "HeaderCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+        <div class="cart">
+            <a href="#" title="View my shopping cart">
+                <span class="cart_title">Giỏ hàng</span>
+                <span class="no_product">@Model.Count sản phẩm</span>
+            </a>
+        </div>
+    

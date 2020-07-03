@@ -1,0 +1,128 @@
+﻿
+
+@model List<WebLinhPhuKienMayTinh.Models.CartItem>
+@{
+    ViewBag.Title = "OfflinePayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content">
+    <div class="section group">
+        <div class="heading">
+            <h3>Thanh toán</h3>
+        </div>
+        <div class="clear"></div>
+        <div class="box_left">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Tên sản phẩm</td>
+                        <td>Hình ảnh</td>
+                        <td>Giá</td>
+                        <td>Số lượng</td>
+                        <td>Tổng giá</td>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.Product.productName</td>
+                            <td><img src="@item.Product.images " width="100" /></td>
+                            <td>@item.Product.price VNĐ</td>
+                            <td>
+                                @item.Quantity
+                            </td>
+                            <td>@(Convert.ToInt32(item.Product.price) * Convert.ToInt32(item.Quantity)) VNĐ </td>
+
+                        </tr>
+
+
+                    }
+
+                </tbody>
+
+                <table style="float:right;text-align:left;" width="40%">
+
+                    <tr>
+                        <th>Tổng cộng: </th>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>VAT : </th>
+                        <td>10%</td>
+                    </tr>
+                    <tr>
+                        <th>Tổng tiền :</th>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </table>
+
+
+        </div>
+
+
+        <div class="box_right">
+            <table class="tblone">
+
+                <tr>
+                    <td>Tên</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Thành Phố</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Mã bưu điện</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Địa chỉ</td>
+                    <td>:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><a href="editprofile.php">Cập nhật thông tin</a></td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<a style="background:#4267b2,color:white" href="/thanh-toan">Quay lại</a>
+
+<center style="padding-bottom: 20px;"><a href="?orderid=order" class="a_order">Đặt hàng ngay</a></center>
+</div>
+
+
+
+
+
+
+

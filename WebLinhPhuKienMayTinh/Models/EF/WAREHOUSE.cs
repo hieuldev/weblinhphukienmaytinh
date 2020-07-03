@@ -17,8 +17,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
         [StringLength(255)]
         public string product_more_quantity { get; set; }
 
-        [Column(TypeName = "datetime")]      
-        public DateTime? sl_Ngaynhap { get; set; }
+        public DateTime sl_Ngaynhap { get; set; }
 
         public virtual PRODUCT PRODUCT { get; set; }
     }

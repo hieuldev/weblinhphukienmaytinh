@@ -28,6 +28,10 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
         {
             return db.ADMINs.SingleOrDefault(x => x.adminUser == userName);
         }
+        public ADMIN ViewProfile(int id)
+        {
+            return db.ADMINs.Find(id);
+        }
         public bool LoginAdmin(string userName, string PassWord)
         {
             var result = db.ADMINs.Count(x => x.adminUser == userName && x.adminPass == PassWord);

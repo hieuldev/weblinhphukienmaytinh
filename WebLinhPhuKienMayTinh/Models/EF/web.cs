@@ -22,12 +22,12 @@ namespace WebLinhPhuKienMayTinh.Models.EF
         public virtual DbSet<ORDER> ORDERS { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<SLIDER> SLIDERs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<WAREHOUSE> WAREHOUSEs { get; set; }
         public virtual DbSet<WISHLIST> WISHLISTs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<ADMIN>()
                 .Property(e => e.adminName)
                 .IsUnicode(false);
@@ -69,10 +69,6 @@ namespace WebLinhPhuKienMayTinh.Models.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<CUSTOMER>()
-                .Property(e => e.country)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CUSTOMER>()
                 .Property(e => e.zipcode)
                 .IsUnicode(false);
 
@@ -99,16 +95,13 @@ namespace WebLinhPhuKienMayTinh.Models.EF
             modelBuilder.Entity<NEWS>()
                 .Property(e => e.newsType)
                 .IsUnicode(false);
+
             modelBuilder.Entity<ORDER>()
                 .Property(e => e.price)
                 .IsUnicode(false);
 
             modelBuilder.Entity<ORDER>()
                 .Property(e => e.images)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PRODUCT>()
-                .Property(e => e.productName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PRODUCT>()
@@ -128,10 +121,6 @@ namespace WebLinhPhuKienMayTinh.Models.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<PRODUCT>()
-                .Property(e => e.price)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PRODUCT>()
                 .Property(e => e.images)
                 .IsUnicode(false);
 
@@ -147,10 +136,6 @@ namespace WebLinhPhuKienMayTinh.Models.EF
                 .Property(e => e.product_more_quantity)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<WAREHOUSE>()
-                .Property(e => e.sl_Ngaynhap)
-                .IsRequired();
-
             modelBuilder.Entity<WISHLIST>()
                 .Property(e => e.productName)
                 .IsUnicode(false);
@@ -163,5 +148,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
                 .Property(e => e.images)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<WebLinhPhuKienMayTinh.Models.RegiterModel> RegiterModels { get; set; }
     }
 }

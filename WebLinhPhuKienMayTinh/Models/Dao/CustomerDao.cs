@@ -35,5 +35,23 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
             return db.CUSTOMERs.Find(id);//lay ra id
 
         }
+        public int Insert(CUSTOMER id)
+        {
+            db.CUSTOMERs.Add(id);
+            db.SaveChanges();
+            return id.customer_id;
+        }
+        public bool CheckUserName(string userName)
+        {
+            return db.CUSTOMERs.Count(x => x.name == userName) > 0;
+        }
+        public bool CheckMail(string mail)
+        {
+            return db.CUSTOMERs.Count(x => x.email == mail) > 0;
+        }
+        public bool CheckPhone(string phone)
+        {
+            return db.CUSTOMERs.Count(x => x.phone == phone) > 0;
+        }
     }
 }

@@ -5,66 +5,50 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
 }
 
-<div class="grid_10">
-    <div class="box round first grid">
-        <h2>Sửa thương hiệu</h2>
-        @section jsFooter{
-            <script>
-                    $('#selectImg').bind('click', function (e) {
-                        e.preventDefault();
-                        var finder = new CKFinder();
-                        finder.selectActionFunction = function (url) {
-                            $('#txtImage').val(url);
-                        };
-                        finder.popup();
-                    })
-                    var editor = CKEDITOR.replace('content', {
-                        customConfig: '/Assets/Admin/js/plugins/ckeditor/config.js',
-                    });
+@section header
+{
+    SỬA TIN TỨC
+}
+@section jsFooter{
+    <script>
+        $('#selectImg').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImage').val(url);
+            };
+            finder.popup();
+        })
+        var editor = CKEDITOR.replace('content', {
+            customConfig: '/Assets/Admin/js/plugins/ckeditor/config.js',
+        });
 
 
-            </script>
-        }
-        @Html.ValidationSummary(false, "", new { @class = "error" })
-        <div class="success">@ViewData["success"]</div>
-        <div class="block copyblock" style="margin-right: 100px ;
-    padding-right: 30px ;
-    width:auto ;">
-            @using (Html.BeginForm("Edit", "News", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.newsID)
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Tiêu đề</label>
-                    <div class="col-md-10">
+    </script>
+}
+@using (Html.BeginForm("Edit", "News", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Sửa</h3>
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <div class="success">@ViewData["success"]</div>
+        </div>
+        <!-- /.box-header -->
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.newsID)
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Tiêu đề</label>
                         @Html.EditorFor(model => model.newsTitle, new { htmlAttributes = new { @class = "form-control" } })
-
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2">Tải ảnh</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.newsImg, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
-                        <a id="selectImg" href="#">Chọn ảnh</a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-2">Mô tả</label>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.newsContent, new { @class = "tinymce", @id = "content" })
-                    </div>
-                </div>
-           
-                <div class="form-group">
-                    <label class="control-label col-md-2">Loại sản phẩm</label>
-                    <div class="col-md-10">
-                        <select id="select" name="newsType">
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label for="name">Loại tin tức</label>
+                        <select class="form-control" name="newsType">
                             @{
                                 if (ViewBag.type == "0")
                                 {
@@ -85,22 +69,44 @@
                                     <option value="1">Tin mới</option>
                                 }
                             }
-
                         </select>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="news_submit">
-                        <input type="submit" name="submit" Value="Lưu" />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Hình ảnh</label>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-danger" id="selectImg">Chọn ảnh</button>
+                            </div>
+                            <!-- /btn-group -->
+                            @Html.EditorFor(model => model.newsImg, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
+                        </div>
                     </div>
                 </div>
-            </div>
-            }
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Nội dung</label>
+                        @Html.TextAreaFor(model => model.newsContent, new { @class = "tinymce", @id = "content" })
+                    </div>
 
-            <div>
-                @Html.ActionLink("<<<Quay lại", "Productlist")
+
+                    <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
             </div>
+
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Sửa" />
+            </div>
+            <div>
+                @Html.ActionLink("<<<Quay lại", "Newslist")
+            </div>
+            <!-- /.row -->
         </div>
+        <!-- /.box-body -->
     </div>
-</div>
+
+}

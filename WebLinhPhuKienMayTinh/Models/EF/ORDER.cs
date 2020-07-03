@@ -29,5 +29,9 @@ namespace WebLinhPhuKienMayTinh.Models.EF
         public int? statuss { get; set; }
 
         public DateTime? dateorder { get; set; }
+
+        public virtual CUSTOMER CUSTOMER { get; set; }
+
+        public virtual PRODUCT PRODUCT { get; set; }
     }
 }

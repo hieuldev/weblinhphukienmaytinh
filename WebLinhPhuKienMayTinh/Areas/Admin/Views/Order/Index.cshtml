@@ -8,90 +8,74 @@
 @model PagedList.IPagedList<ORDER>
 @using PagedList.Mvc
 @{int i = 0; }
-<div class="grid_10">
-    <div class="box round first grid">
+@section header
+{
+    DANH SÁCH ĐƠN HÀNG
+}
+<div class="box-body">
+    @using (Html.BeginForm("Index", "Order", FormMethod.Get))
+    {
         <div class="row">
-            <div class="col-xs-12">
-                <h2>Danh mục sản phẩm</h2>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    @using (Html.BeginForm("Update","Order",FormMethod.Get))
-                    {
-                        <div class="row">
-                            <div>
-                                <div class="new_input-form">
-                                    <input type="text" value="@ViewBag.searchString" name="searchString" />
-                                </div>
-                                <div>
-                                    <button type="submit">Tìm kiếm</button>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    <table id="example2" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Ngày đặt</th>
-                                <th>Sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
-                                <th>Khách hàng</th>
-                                <th>Địa chỉ</th>
-                                <th>Xử lý</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                            <tr>
-                                @{ i++;}
-                                <td>@i</td>
-                                <td>@item.dateorder</td>
-                                <td>@item.productName</td>
-                                <td>@item.quantity</td>
-                                <td>@item.price</td>
-                                <td>@item.customer_id</td>
-                                <td><a href="/Admin/Customer/Detail/@item.customer_id">Xem khách hàng</a></td>
-                                @{if (item.statuss == 0)
-                                    {
-                                        <td><a href="/Admin/Order/Index?producId=@item.productId&customerId=@item.customer_id">Đang chờ xử lý</a></td>
-                                    }
-                                    else if (item.statuss == 1)
-                                    {
-                                        <td>Đang giao hàng</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Xóa đơn</td>
-                                    }
-                                }
-                            </tr>
-                                    }
-
-                                </tbody>
-
-                            </table>
-
-                            <div class="col-sm-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.searchString }))
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- /.box-body -->
-                        <!-- /.box -->
-                        <!-- /.box -->
-                    </div>
-                    <!-- /.col -->
-
+            <div>
+                <div class="new_input-form">
+                    <input type="text" value="@ViewBag.searchString" name="searchString" />
                 </div>
-                <!-- /.row -->
-
-
-
+                <div>
+                    <button type="submit">Tìm kiếm</button>
+                </div>
             </div>
         </div>
+    }
+    <table id="example2" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Ngày đặt</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Khách hàng</th>
+                <th>Địa chỉ</th>
+                <th>Xử lý</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @{ i++;}
+                    <td>@i</td>
+                    <td>@item.dateorder</td>
+                    <td>@item.productName</td>
+                    <td>@item.quantity</td>
+                    <td>@item.price</td>
+                    <td>@item.customer_id</td>
+                    <td><a href="/Admin/Customer/Detail/@item.customer_id">Xem khách hàng</a></td>
+                    @{if (item.statuss == 0)
+                        {
+                            <td><a href="/Admin/Order/Index?productId=@item.productId&customerId=@item.customer_id">Đang chờ xử lý</a></td>
+                        }
+                        else if (item.statuss == 1)
+                        {
+                            <td>Đang giao hàng</td>
+                        }
+                        else
+                        {
+                            <td>Xóa đơn</td>
+                        }
+                    }
+                </tr>
+                
+            }
 
+        </tbody>
+
+    </table>
+    <div class="col-sm-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.searchString }))
+        </div>
+    </div>
+
+
+</div>

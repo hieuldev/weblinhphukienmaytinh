@@ -8,7 +8,6 @@ namespace WebLinhPhuKienMayTinh.Areas.Admin.Controllers
     public class LoginController : Controller
     {
         // GET: Admin/Login
-
         public ActionResult Index()
         {
             return View();
@@ -26,6 +25,7 @@ namespace WebLinhPhuKienMayTinh.Areas.Admin.Controllers
                     var userSession = new UserLogin();
                     userSession.UserName = user.adminUser;
                     userSession.UserID = user.adminId;
+                    Session.Add("id", user.adminId);
                     Session.Add(CommonConstants.USER_SESSION, userSession);//(tenbien,giatrikhoitao)
                     return RedirectToAction("Index", "Home");
                 }
