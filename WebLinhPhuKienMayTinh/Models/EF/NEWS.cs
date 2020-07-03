@@ -5,6 +5,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     public partial class NEWS
     {
@@ -17,6 +18,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
         public string newsImg { get; set; }
 
         [Column(TypeName = "ntext")]
+        [AllowHtml]
         public string newsContent { get; set; }
 
         [StringLength(255)]

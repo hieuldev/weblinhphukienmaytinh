@@ -5,6 +5,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     [Table("PRODUCT")]
     public partial class PRODUCT
@@ -21,7 +22,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
 
         public int productId { get; set; }
 
-        [StringLength(50)]
+        [StringLength(255)]
         public string productName { get; set; }
 
         [StringLength(255)]
@@ -41,6 +42,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
         public int? brandId { get; set; }
 
         [Column(TypeName = "ntext")]
+        [AllowHtml]
         public string product_Desc { get; set; }
 
         public int? types { get; set; }

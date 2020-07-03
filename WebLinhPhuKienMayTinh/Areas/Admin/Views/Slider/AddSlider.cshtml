@@ -23,7 +23,7 @@
 @section header
 { THÊM SLIDER
 }
-@using (Html.BeginForm("AddNews", "News", FormMethod.Post))
+@using (Html.BeginForm("AddSlider", "Slider", FormMethod.Post))
 {
     <div class="box box-default">
         <div class="box-header with-border">
@@ -52,7 +52,7 @@
                             <!-- /btn-group -->
                             @Html.TextBoxFor(model => model.slider_Image, new { @class = "form-control", placeholder = "Hãy chọn hình ảnh", @id = "txtImage" })
                         </div>
-                                              
+
                     </div>
                     <!-- /.form-group -->
 
@@ -73,6 +73,9 @@
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary" value="Thêm" />
+            </div>
+            <div>
+                @Html.ActionLink("<<<Back to list", "Sliderlist")
             </div>
             <!-- /.row -->
         </div>

@@ -4,100 +4,98 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
 }
 @model WebLinhPhuKienMayTinh.Models.EF.SLIDER
-<div class="grid_10">
-    <div class="box round first grid">
-        <h2>Sửa thương hiệu</h2>
-        @section jsFooter{
-            <script>
-                $('#selectImg').on('click', function (e) {
-                    e.preventDefault();
-                    var finder = new CKFinder();
-                    finder.selectActionFunction = function (url) {
-                        $('#txtImage').val(url);
-                    };
-                    finder.popup();
-                })
+@section jsFooter{
+    <script>
+        $('#selectImg').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImage').val(url);
+            };
+            finder.popup();
+        })
 
-            </script>
-        }
-       
-            @section header
+    </script>
+}
+
+@section header
 { SỬA SLIDER
-            }
-            @using (Html.BeginForm("Edit", "Slider", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
+}
+@using (Html.BeginForm("Edit", "Slider", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
 
 
-                <div class="box box-default">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Sửa</h3>
-                        @Html.ValidationSummary(false, "", new { @class = "error" })
-                        <div class="success">@ViewData["success"]</div>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Sửa</h3>
+            @Html.ValidationSummary(false, "", new { @class = "error" })
+            <div class="success">@ViewData["success"]</div>
+        </div>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.sliderID)
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Tên slider</label>
+                        @Html.EditorFor(model => model.sliderName, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.sliderID)
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">Tên slider</label>
-                                    @Html.EditorFor(model => model.sliderName, new { htmlAttributes = new { @class = "form-control" } })
-                                </div>
-                                <!-- /.form-group -->
+                    <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tải ảnh</label>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-danger" id="selectImg">Chọn ảnh</button>
                             </div>
-                            <!-- /.col -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tải ảnh</label>
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="btn btn-danger" id="selectImg">Chọn ảnh</button>
-                                        </div>
-                                        <!-- /btn-group -->
-                                        @Html.EditorFor(model => model.slider_Image, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
-                                    </div>
-
-                                </div>
-                                <!-- /.form-group -->
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">Trạng thái</label>
-                                    <select id="select" name="type0">
-                                        @{
-                                            if (ViewBag.type == 0)
-                                            {
-                                                <option selected value="0">Tắt</option>
-                                                <option value="1">Bật</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="1">Bật</option>
-                                                <option value="0">Tắt</option>
-                                            }
-                                        }
-
-                                    </select>
-                                </div>
-                                <!-- /.form-group -->
-                            </div>
-
-                            <!-- /.col -->
+                            <!-- /btn-group -->
+                            @Html.EditorFor(model => model.slider_Image, new { htmlAttributes = new { @class = "form-control", @id = "txtImage" } })
                         </div>
-                        <div class="box-footer">
-                            <input type="submit" class="btn btn-primary" value="Thêm" />
-                        </div>
-                        <div>
-                            @Html.ActionLink("<<<Quay lại", "Productlist")
-                        </div>
-                        <!-- /.row -->
+
                     </div>
-                    <!-- /.box-body -->
+                    <!-- /.form-group -->
 
                 </div>
-            }
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Trạng thái</label>
+                        <select id="select" name="type0">
+                            @{
+                                if (ViewBag.type == 0)
+                                {
+                                    <option selected value="0">Tắt</option>
+                                    <option value="1">Bật</option>
+                                }
+                                else
+                                {
+                                    <option selected value="1">Bật</option>
+                                    <option value="0">Tắt</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                    <!-- /.form-group -->
+                </div>
+
+                <!-- /.col -->
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Sửa" />
+            </div>
+            <div>
+                @Html.ActionLink("<<<Quay lại", "Sliderlist")
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+}
 

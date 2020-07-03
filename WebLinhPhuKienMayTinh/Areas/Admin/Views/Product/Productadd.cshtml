@@ -111,24 +111,27 @@
                             </div>
                             <!-- /btn-group -->
                             @Html.TextBoxFor(model => model.images, new { @class = "form-control", placeholder = "Hãy chọn hình ảnh", @id = "txtImage" })
-                        </div>                      
+                        </div>
                     </div>
                     <!-- /.form-group -->
                 </div>
 
-                <div class="col-md-12" >
+                <div class="col-md-12">
                     <div class="form-group">
                         <label>Mô tả</label>
                         @Html.TextAreaFor(model => model.product_Desc, new { @class = "tinymce", @id = "content" })
                     </div>
                 </div>
             </div>
-                
-                <div class="box-footer">
-                    <input type="submit" class="btn btn-primary" value="Thêm" />
-                </div>
-                <!-- /.row -->
+
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" value="Thêm" />
             </div>
+            <div>
+                @Html.ActionLink("<<<Back to list", "Productlist")
+            </div>
+            <!-- /.row -->
+        </div>
         <!-- /.box-body -->
     </div>
 

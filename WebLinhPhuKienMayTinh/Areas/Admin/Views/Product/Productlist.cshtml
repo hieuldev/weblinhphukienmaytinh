@@ -12,20 +12,63 @@
 {
     DANH SÁCH SẢN PHẨM
 }
+
 <div class="box-body">
+
     @using (Html.BeginForm("Productlist", "Product", FormMethod.Get))
     {
-        <div class="row">
+        <div class="row" id="new_search">
+
+            <div class="col-md-2">
+                <select name="select_category" class="form-control" style="height:26px;padding:0px 12px;">
+                    <option selected value="">--Danh mục sản phẩm--</option>
+                    @foreach (var item in ViewBag.ListCategory)
+                    {
+                        <option value="@item.catId">@item.catName</option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-2">
+
+                <select name="select_brand" class="form-control " style="height:26px;padding:0px 12px;">
+                    <option selected value="">--Thương hiệu sản phẩm--</option>
+                    @foreach (var item in ViewBag.ListBrand)
+                    {
+                        <option value="@item.brandId">@item.brandName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+
+                <select name="select_type" class="form-control " style="height:26px;padding:0px 12px;">
+                    <option selected value="">--Loại sản phẩm--</option>
+                    <option value="1">Nổi bật</option>
+                    <option value="0">Không nổi bật</option>
+                </select>
+            </div>
+            <div id="quantity">Giá</div>
+            <div >
+                <input id="quantityfrom" type="text" name="pricefrom" />
+            </div>
+            <div id="to">
+                đến
+            </div>
             <div>
-                <div class="new_input-form">
-                    <input type="text" value="@ViewBag.searchString" name="searchString" />
+                <input id="quantityto" type="text" name="priceto" />
+            </div>
+            <div>
+
+                <div class="col-md-3">
+                    <input type="text" value="@ViewBag.searchString" name="searchString" style="width:102%;" />
                 </div>
                 <div>
-                    <button type="submit">Tìm kiếm</button>
+                    <button type="submit" id="search">Tìm kiếm</button>
                 </div>
             </div>
         </div>
     }
+    <a href="Productadd">Thêm mới</a>
     <table id="example2" class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -56,7 +99,7 @@
                     <td>@item.productQuantity</td>
                     <td>@item.procduct_Soldout</td>
                     <td>@item.product_Remain</td>
-                    <td>@item.productQuantity</td>
+                    <td>@item.price</td>
                     <td><img src="@item.images" id="imgs"></td>
                     <td>
                         @{var Cat = new ProductDao();
@@ -101,9 +144,6 @@
                         }
 
                     }
-
-
-
                     <td>
 
                         <a href="/Admin/Product/Edit/@item.productId">
@@ -130,3 +170,4 @@
 
 
 </div>
+

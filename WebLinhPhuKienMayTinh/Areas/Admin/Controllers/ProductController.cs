@@ -56,10 +56,12 @@ namespace WebLinhPhuKienMayTinh.Areas.Admin.Controllers
             }
             return View();
         }
-        public ActionResult Productlist(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Productlist(string select_category,string select_brand,string select_type,string pricefrom, string priceto, string searchString, int page = 1, int pageSize = 10)
         {
             var dao = new ProductDao();
-            var model = dao.ListAllproduct(searchString, page, pageSize);
+            ViewBag.ListBrand = dao.ListBrand();
+            ViewBag.ListCategory = dao.ListCategory();
+            var model = dao.ListAllproduct(select_category,select_brand,select_type, pricefrom, priceto, searchString,page,pageSize);
             ViewBag.searchString = searchString;
             return View(model);
 

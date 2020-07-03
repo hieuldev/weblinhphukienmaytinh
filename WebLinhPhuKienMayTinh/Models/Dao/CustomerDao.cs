@@ -18,23 +18,6 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
         {
             db = new web();
         }
-
-        public IEnumerable<CUSTOMER> UserProfile(string searchString, int page, int pageSize)
-        {
-            IQueryable<CUSTOMER> model = db.CUSTOMERs;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                model = model.Where(x => x.name.Contains(searchString) || x.address0.Contains(searchString) || x.city.Contains(searchString) || x.zipcode.Contains(searchString) || x.email.Contains(searchString) || x.phone.Contains(searchString));
-                //Contains tìm kiếm gần đúng
-            }
-            return model.OrderByDescending(x => x.customer_id).ToPagedList(page, pageSize);
-        }
-        public CUSTOMER Viewdetail(int id)
-        {
-
-            return db.CUSTOMERs.Find(id);//lay ra id
-
-        }
         public int Insert(CUSTOMER id)
         {
             db.CUSTOMERs.Add(id);
@@ -52,6 +35,22 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
         public bool CheckPhone(string phone)
         {
             return db.CUSTOMERs.Count(x => x.phone == phone) > 0;
+        }
+        public IEnumerable<CUSTOMER> UserProfile(string searchString, int page, int pageSize)
+        {
+            IQueryable<CUSTOMER> model = db.CUSTOMERs;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.name.Contains(searchString) || x.address0.Contains(searchString) || x.city.Contains(searchString) || x.zipcode.Contains(searchString) || x.email.Contains(searchString) || x.phone.Contains(searchString));
+                //Contains tìm kiếm gần đúng
+            }
+            return model.OrderByDescending(x => x.customer_id).ToPagedList(page, pageSize);
+        }
+        public CUSTOMER Viewdetail(int id)
+        {
+
+            return db.CUSTOMERs.Find(id);//lay ra id
+
         }
     }
 }

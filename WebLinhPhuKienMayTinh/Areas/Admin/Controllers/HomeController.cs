@@ -8,7 +8,7 @@ namespace WebLinhPhuKienMayTinh.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
     {
-        // GET: Admin/Home
+        // GET: Admin/Home 
         public ActionResult Index()
         {
             return View();

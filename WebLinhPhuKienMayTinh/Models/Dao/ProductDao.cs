@@ -24,14 +24,6 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
         {
             return db.BRANDs.ToList();
         }
-        public List<PRODUCT> ListNewProduct(int top)
-        {
-            return db.PRODUCTs.OrderByDescending(x => x.productId).Take(top).ToList();
-        }
-        public List<PRODUCT> ListFeatureProduct(int top)
-        {
-            return db.PRODUCTs.OrderByDescending(x => x.product_Remain).Take(top).ToList();
-        }
         public List<CATEGORY> ListCategory()
         {
             return db.CATEGORies.ToList();
@@ -43,15 +35,38 @@ namespace WebLinhPhuKienMayTinh.Models.Dao
                 return entity.productId;
   
         }
-        public IEnumerable<PRODUCT> ListAllproduct(string searchString, int page, int pageSize)
+        public List<PRODUCT> ListNewProduct(int top)
         {
-            IQueryable<PRODUCT> model = db.PRODUCTs;
+            return db.PRODUCTs.OrderByDescending(x => x.productId).Take(top).ToList();
+        }
+        public List<PRODUCT> ListFeatureProduct(int top)
+        {
+            return db.PRODUCTs.OrderByDescending(x => x.product_Remain).Take(top).ToList();
+        }
+        public IEnumerable<PRODUCT> ListAllproduct(string select_category, string select_brand, string select_type, string pricefrom, string priceto, string searchString, int page, int pageSize)
+        { 
+            
+            var model= db.PRODUCTs.SqlQuery("select *from PRODUCT where catId like N'%" + select_category + "%' and brandId like N'%" + select_brand + "%' and types like N'%" + select_type + "%' order by productId desc");
             if (!string.IsNullOrEmpty(searchString))
             {
-                model = model.Where(x => x.productName.Contains(searchString));
-                //Contains tìm kiếm gần đúng
+                if (!string.IsNullOrEmpty(priceto) && !string.IsNullOrEmpty(pricefrom))
+                {
+                   model = db.PRODUCTs.SqlQuery("select *from PRODUCT where catId like N'%"+select_category+"%' and brandId like N'%"+select_brand+"%' and types like N'%"+select_type+ "%' and (Convert(int,price)>=" + pricefrom + " and Convert(int,price)<" + priceto + ") and (product_Code like N'%"+searchString+"%' or productName like N'%"+searchString+ "%') order by productId desc");
+                    
+                } 
+                else
+                {
+                    model = db.PRODUCTs.SqlQuery("select *from PRODUCT where catId like N'%" + select_category + "%' and brandId like N'%" + select_brand + "%' and types like N'%" + select_type + "%' and (product_Code like N'%" + searchString + "%' or productName like N'%" + searchString + "%') order by productId desc");
+                }
             }
-            return model.OrderByDescending(x => x.productId).ToPagedList(page, pageSize);
+             else
+            {
+                if(!string.IsNullOrEmpty(priceto) && !string.IsNullOrEmpty(pricefrom))
+                {
+                    model = db.PRODUCTs.SqlQuery("select *from PRODUCT where catId like N'%" + select_category + "%' and brandId like N'%" + select_brand + "%' and types like N'%" + select_type + "%' and (Convert(int,price)>=" + pricefrom + " and Convert(int,price)<" + priceto + ")  order by productId desc");
+                }
+            }
+             return model.ToPagedList(page,pageSize);
         }
         public BRAND ViewdetailBrand(int id)
         {

@@ -9,6 +9,7 @@ namespace WebLinhPhuKienMayTinh.Models.EF
     [Table("SLIDER")]
     public partial class SLIDER
     {
+        [Key]
         public int sliderID { get; set; }
 
         [StringLength(255)]
